@@ -1,0 +1,6 @@
+<launch>
+    <node pkg="dobot" name="dobot_client" type="Dobot.py"/>
+    <node pkg="dobot" name="dobot_server" type="DobotServer">
+        <param name="port" value="/dev/ttyUSB1"/>
+    </node>
+</launch>
