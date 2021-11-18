@@ -4,34 +4,25 @@ import rospy
 from dobot.srv import *
 
 
-def set_ptp_cmd(ptpMode, x, y, z, r):
-    rospy.wait_for_service('/DobotServer/SetPTPCmd')
-    cmd = rospy.ServiceProxy('/DobotServer/SetPTPCmd', SetPTPCmd)
-    response = cmd(ptpMode, x, y, z, r)
+def run(command, *args, **kwargs):
+    rospy.wait_for_service(f'/DobotServer/{command.__name__}/')
+    cmd = rospy.ServiceProxy(f'/DobotServer/{command.__name__}', command)
+    response = cmd(*args, **kwargs)
     return response
+
+
+def set_ptp_cmd(ptpMode, x, y, z, r):
+    return run(SetPTPCmd, ptpMode, x, y, z, r)
 
 def set_home_cmd():
-    rospy.wait_for_service('/DobotServer/SetHOMECmd')
-    cmd = rospy.ServiceProxy('/DobotServer/SetHOMECmd', SetHOMECmd)
-    response = cmd()
-    return response
+    return run(SetHOMECmd)
 
 def set_wait_cmd(timeout):
-    rospy.wait_for_service('/DobotServer/SetWAITCmd')
-    cmd = rospy.ServiceProxy('/DobotServer/SetWAITCmd', SetWAITCmd)
-    response = cmd(timeout)
-    return response
+    return run(SetWAITCmd, timeout)
 
 def set_end_effector_gripper(enableCtrl, grip, isQueued):
-    rospy.wait_for_service('/DobotServer/SetEndEffectorGripper')
-    cmd = rospy.ServiceProxy('/DobotServer/SetEndEffectorGripper', SetEndEffectorGripper)
-    response = cmd(enableCtrl, grip, isQueued)
-    return response
-
+    return run(SetEndEffectorGripper, enableCtrl, grip, isQueued)
 
 def get_pose():
-    rospy.wait_for_service('/DobotServer/GetPose')
-    cmd = rospy.ServiceProxy('/DobotServer/GetPose', GetPose)
-    response = cmd()
-    return response
+    return run(GetPose)
 
