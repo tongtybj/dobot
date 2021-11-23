@@ -1,5 +1,5 @@
 <launch>
-    <node pkg="dobot" name="dobot_client" type="Dobot_jog.py"/>
+    <node pkg="dobot" name="dobot_client" type="DobotClient_JOG.py"/>
     <arg name="portname" default="/dev/ttyUSB0"/>
     <node pkg="dobot" name="dobot_server" type="DobotServer">
         <param name="port" value="$(arg portname)"/> 
