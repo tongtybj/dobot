@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 import rospy
+import sys
+LIBPATH = "../../dobot/src"
+sys.path.append(LIBPATH)
 import DobotClient as dc
 import tkinter as tk
 
