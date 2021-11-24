@@ -1,12 +1,12 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 import rospy
 
 from dobot.srv import *
 
 
 def run(command, *args, **kwargs):
-    rospy.wait_for_service(f'/DobotServer/{command.__name__}/')
-    cmd = rospy.ServiceProxy(f'/DobotServer/{command.__name__}', command)
+    rospy.wait_for_service('/DobotServer/{}'.format(command.__name__))
+    cmd = rospy.ServiceProxy('/DobotServer/{}'.format(command.__name__), command)
     response = cmd(*args, **kwargs)
     return response
 
